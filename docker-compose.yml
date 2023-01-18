@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+
+  pffdtd:
+    image: pffdtd:latest
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        - GPU_ARCHITECTURE=${GPU_ARCHITECTURE}
+        - CUDA_VERSION=${CUDA_VERSION}
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    # command: tail -F anything
+
